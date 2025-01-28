@@ -23,11 +23,17 @@
     </mat-card>
   </ng-container>
 </div>
-</div>
 
 <ng-template #loadingTpl>
   <div class="loading-container">
     <mat-spinner diameter="50"></mat-spinner>
     <p>Loading airport details...</p>
+  </div>
+</ng-template>
+
+<ng-template #errorTpl>
+  <div class="error-container">
+    <mat-icon>error</mat-icon>
+    <p>{{ error }}</p>
   </div>
 </ng-template>

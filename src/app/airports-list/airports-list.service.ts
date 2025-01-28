@@ -8,12 +8,12 @@ export class AirportsListService {
     constructor(private http: HttpClient) { }
 
     getAllAirports(): Observable<Airport[]> {
-        const headers = new HttpHeaders().set('securityKey', localStorage.getItem('securityKey') || '');
+        const headers = new HttpHeaders().set('securityKey', localStorage.getItem('securityKey') || 'default-key');
         return this.http.get<Airport[]>('/allAirports', { headers });
     }
 
     getAirport(airportKey: string): Observable<Airport> {
-        const headers = new HttpHeaders().set('securityKey', localStorage.getItem('securityKey') || '');
+        const headers = new HttpHeaders().set('securityKey', localStorage.getItem('securityKey') || 'default-key');
         return this.http.post<Airport>('/airport', { key: airportKey }, { headers });
     }
 }

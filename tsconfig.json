@@ -14,12 +14,11 @@
     "lib": [
       "es2018",
       "dom"
-    ]
-  },
-  "angularCompilerOptions": {
-    "enableI18nLegacyMessageIdFormat": false,
-    "strictInjectionParameters": true,
-    "strictInputAccessModifiers": true,
-    "strictTemplates": true
+    ],
+    "paths": {
+      "tslib": [
+        "./node_modules/tslib/tslib.d.ts"
+      ]
+    }
   }
 }

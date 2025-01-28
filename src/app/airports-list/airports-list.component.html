@@ -14,15 +14,19 @@
     <div class="airports-content">
         <ng-container *ngIf="airports$ | async as airports; else loading">
             <div class="airports-list" *ngIf="airports.length; else noData">
-                <app-airport-row *ngFor="let airport of airports; trackBy: trackByFn" [airport]="airport"
+                <app-airport-row 
+                    *ngFor="let airport of airports; trackBy: trackByFn" 
+                    [airport]="airport"
                     (airportSelected)="onAirportSelected($event)">
                 </app-airport-row>
             </div>
         </ng-container>
 
         <ng-template #loading>
-            <mat-progress-spinner mode="indeterminate" diameter="50" class="loading-spinner">
-            </mat-progress-spinner>
+            <div class="loading-container">
+                <mat-spinner diameter="50"></mat-spinner>
+                <p>Loading airports...</p>
+            </div>
         </ng-template>
 
         <ng-template #noData>

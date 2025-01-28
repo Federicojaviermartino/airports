@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+// src/app/airport-detail/airport-detail.component.ts
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { AirportsListService } from '../airports-list/airports-list.service';
 import { Airport } from '../airports-list/airport';
 
@@ -15,10 +18,11 @@ interface AirportDetail extends Airport {
   templateUrl: './airport-detail.component.html',
   styleUrls: ['./airport-detail.component.scss']
 })
-export class AirportDetailComponent implements OnInit {
+export class AirportDetailComponent implements OnInit, OnDestroy {
   airportDetail?: AirportDetail;
   loading = true;
   error = '';
+  private destroy$ = new Subject<void>();
 
   constructor(
     private route: ActivatedRoute,
@@ -29,6 +33,11 @@ export class AirportDetailComponent implements OnInit {
     this.loadAirportDetails();
   }
 
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
   private loadAirportDetails(): void {
     const airportKey = this.route.snapshot.paramMap.get('key');
     if (!airportKey) {
@@ -37,15 +46,17 @@ export class AirportDetailComponent implements OnInit {
       return;
     }
 
-    this.airportsService.getAirport(airportKey).subscribe({
-      next: (data) => {
-        this.airportDetail = data;
-        this.loading = false;
-      },
-      error: (error) => {
-        this.error = error.message;
-        this.loading = false;
-      }
-    });
+    this.airportsService.getAirport(airportKey)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (data) => {
+          this.airportDetail = data;
+          this.loading = false;
+        },
+        error: (error) => {
+          this.error = error.message;
+          this.loading = false;
+        }
+      });
   }
 }

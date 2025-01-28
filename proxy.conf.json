@@ -1,13 +1,12 @@
 {
-    "/allAirports": {
-      "target": "http://localhost:8882",
-      "secure": false,
-      "logLevel": "debug"
-    },
-    "/airport": {
-      "target": "http://localhost:8882",
-      "secure": false,
-      "logLevel": "debug"
-    }
+  "/allAirports": {
+    "target": "http://localhost:1500",
+    "secure": false,
+    "changeOrigin": true
+  },
+  "/airport": {
+    "target": "http://localhost:1500",
+    "secure": false,
+    "changeOrigin": true
   }
-  
+}
