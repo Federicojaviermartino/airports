@@ -21,6 +21,11 @@ import { LoginComponent } from './login/login.component';
 import { AirportDetailComponent } from './airport-detail/airport-detail.component';
 import { AppRoutingModule } from './app-routing.module';
 
+// Services
+import { AuthService } from './auth/auth.service';
+import { AirportsListService } from './airports-list/airports-list.service';
+import { AuthGuard } from './auth/auth.guard';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,7 +49,11 @@ import { AppRoutingModule } from './app-routing.module';
     MatIconModule,
     MatProgressSpinnerModule
   ],
-  providers: [],
+  providers: [
+    AuthService,
+    AirportsListService,
+    AuthGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
