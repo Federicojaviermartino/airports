@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -12,16 +12,19 @@ export class LoginComponent {
 
   constructor(
     private fb: FormBuilder,
-    private authService: AuthService
+    private router: Router
   ) {
     this.loginForm = this.fb.group({
       username: ['', Validators.required]
     });
   }
 
-  onSubmit(): void {
+  login(): void {
     if (this.loginForm.valid) {
-      this.authService.login(this.loginForm.get('username')?.value);
+      const username = this.loginForm.get('username')?.value;
+      localStorage.setItem('securityKey', 'dummy_security_key');
+      localStorage.setItem('username', username);
+      this.router.navigate(['/airports']);
     }
   }
 }
