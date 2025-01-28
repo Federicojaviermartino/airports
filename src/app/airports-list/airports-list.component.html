@@ -1,0 +1,7 @@
+<ul>
+    <li *ngFor="let airport of airportsList">
+        <a [routerLink]="['/stubbs/data/all-airports', airport.key]">
+            <strong>{{ airport.name }}</strong> ({{ airport.key }}) - {{ airport.city }}, {{ airport.country }}
+        </a>
+    </li>
+</ul>

@@ -1,0 +1,8 @@
+<div *ngIf="airportDetail">
+  <h2>{{ airportDetail.name }} ({{ airportDetail.key }})</h2>
+  <p><strong>Location:</strong> {{ airportDetail.city }}, {{ airportDetail.country }}</p>
+  <p><strong>Description:</strong> {{ airportDetail.description }}</p>
+</div>
+<div *ngIf="!airportDetail">
+  <p>Loading airport details...</p>
+</div>

@@ -1,0 +1,23 @@
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { RouterModule } from '@angular/router';
+import { AppComponent } from './app.component';
+import { AirportsListComponent } from './airports-list/airports-list.component';
+import { AirportRowComponent } from './airport-row/airport-row.component';
+import { HttpClientModule } from '@angular/common/http';
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    AirportsListComponent,
+    AirportRowComponent,
+  ],
+  imports: [
+    BrowserModule,
+    RouterModule.forRoot([]),
+    HttpClientModule,
+  ],
+  providers: [],
+  bootstrap: [AppComponent],
+})
+export class AppModule {}
