@@ -1,7 +1,40 @@
-<ul>
-    <li *ngFor="let airport of airportsList">
-        <a [routerLink]="['/stubbs/data/all-airports', airport.key]">
-            <strong>{{ airport.name }}</strong> ({{ airport.key }}) - {{ airport.city }}, {{ airport.country }}
-        </a>
-    </li>
-</ul>
+<div class="airports-container">
+    <mat-toolbar>
+        <span>Airports of the World</span>
+        <span class="toolbar-spacer"></span>
+        <span class="username" *ngIf="username$ | async as username">{{ username }}</span>
+        <button mat-icon-button (click)="logout()">
+            <mat-icon>exit_to_app</mat-icon>
+        </button>
+        <button mat-icon-button (click)="loadAirports()">
+            <mat-icon>refresh</mat-icon>
+        </button>
+    </mat-toolbar>
+
+    <div class="airports-content">
+        <ng-container *ngIf="airports$ | async as airports; else loading">
+            <div class="airports-list" *ngIf="airports.length; else noData">
+                <app-airport-row *ngFor="let airport of airports; trackBy: trackByFn" [airport]="airport"
+                    (airportSelected)="onAirportSelected($event)">
+                </app-airport-row>
+            </div>
+        </ng-container>
+
+        <ng-template #loading>
+            <mat-progress-spinner mode="indeterminate" diameter="50" class="loading-spinner">
+            </mat-progress-spinner>
+        </ng-template>
+
+        <ng-template #noData>
+            <div class="no-data">
+                <mat-icon>flight</mat-icon>
+                <p>No airports found</p>
+            </div>
+        </ng-template>
+
+        <div *ngIf="error" class="error-message">
+            <mat-icon>error</mat-icon>
+            <p>{{ error }}</p>
+        </div>
+    </div>
+</div>

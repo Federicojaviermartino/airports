@@ -1,0 +1,54 @@
+@import '../../styles.scss';
+
+.airport-card {
+    margin: 0;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    border-radius: 8px;
+    background-color: $color-white;
+
+    &:hover {
+        transform: translateX(8px);
+        background-color: $gray-10;
+    }
+
+    mat-card-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px;
+        margin: 0;
+
+        .airport-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+
+            .airport-main {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+
+                .airport-name {
+                    font-weight: 500;
+                    color: $gray-75;
+                    font-size: 16px;
+                }
+
+                .airport-key {
+                    color: $gray-45;
+                    font-size: 14px;
+                }
+            }
+
+            .airport-location {
+                color: $gray-60;
+                font-size: 14px;
+            }
+        }
+
+        .chevron-icon {
+            color: $gray-45;
+        }
+    }
+}

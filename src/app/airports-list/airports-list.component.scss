@@ -1,26 +1,72 @@
-@import "../../styles";
+@import "../../styles.scss";
 
-.header {
-  background: $gray-75;
-  color: $color-white;
-  padding: 20px;
-}
+.airports-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 
-mat-toolbar {
-  background: $color-primary-a;
-}
+  mat-toolbar {
+    background-color: $color-primary-a;
+    color: $gray-75;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
 
-.aiports-list {
-  margin: 10px;
-}
+    .toolbar-spacer {
+      flex: 1 1 auto;
+    }
 
-.example-card {
-  max-width: 80%;
-  margin: 5px;
-  margin-left: auto;
-  margin-right: auto;
-  cursor: pointer;
-  .mat-card-content {
-    margin-left: 15px;
+    .username {
+      margin-right: 16px;
+      font-size: 14px;
+    }
+
+    button {
+      margin-left: 8px;
+    }
+  }
+
+  .airports-content {
+    flex: 1;
+    padding: 16px;
+    background-color: $gray-10;
+    overflow-y: auto;
+
+    .airports-list {
+      max-width: 800px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .loading-spinner {
+      margin: 48px auto;
+    }
+
+    .no-data, .error-message {
+      text-align: center;
+      color: $gray-45;
+      margin-top: 48px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+
+      mat-icon {
+        font-size: 48px;
+        width: 48px;
+        height: 48px;
+      }
+
+      p {
+        margin: 0;
+        font-size: 16px;
+      }
+    }
+
+    .error-message {
+      color: #f44336;
+    }
   }
 }

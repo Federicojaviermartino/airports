@@ -1,30 +1,51 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
 import { AirportsListService } from '../airports-list/airports-list.service';
+import { Airport } from '../airports-list/airport';
+
+interface AirportDetail extends Airport {
+  owner?: string;
+  build?: string;
+  image?: string;
+  description?: string;
+}
 
 @Component({
   selector: 'app-airport-detail',
   templateUrl: './airport-detail.component.html',
-  styleUrls: ['./airport-detail.component.scss'],
+  styleUrls: ['./airport-detail.component.scss']
 })
 export class AirportDetailComponent implements OnInit {
-  airportDetail: any;
+  airportDetail?: AirportDetail;
+  loading = true;
+  error = '';
 
-  constructor(private route: ActivatedRoute, private http: HttpClient) {}
+  constructor(
+    private route: ActivatedRoute,
+    private airportsService: AirportsListService
+  ) {}
 
   ngOnInit(): void {
-    const airportKey = this.route.snapshot.paramMap.get('key');
-    this.getAirportDetail(airportKey);
+    this.loadAirportDetails();
   }
 
-  getAirportDetail(key: string | null): void {
-    if (!key) return;
-    this.http
-      .post('/airport', { key }, { headers: { securityKey: 'myKey' } })
-      .subscribe(
-        (data) => (this.airportDetail = data),
-        (error) => console.error('Error fetching airport details:', error)
-      );
+  private loadAirportDetails(): void {
+    const airportKey = this.route.snapshot.paramMap.get('key');
+    if (!airportKey) {
+      this.error = 'No airport key provided';
+      this.loading = false;
+      return;
+    }
+
+    this.airportsService.getAirport(airportKey).subscribe({
+      next: (data) => {
+        this.airportDetail = data;
+        this.loading = false;
+      },
+      error: (error) => {
+        this.error = error.message;
+        this.loading = false;
+      }
+    });
   }
 }

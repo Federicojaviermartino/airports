@@ -1,4 +1,14 @@
-<a [routerLink]="['/airports/airport', airport.key]">
-    <strong>{{ airport.name }}</strong> ({{ airport.key }}) - {{ airport.city }}, {{ airport.country }}
-  </a>
-  
+<mat-card class="airport-card" (click)="onSelect()">
+  <mat-card-content>
+    <div class="airport-info">
+      <div class="airport-main">
+        <span class="airport-name">{{ airport.name }}</span>
+        <span class="airport-key">({{ airport.key }})</span>
+      </div>
+      <div class="airport-location">
+        {{ airport.city }}, {{ airport.country }}
+      </div>
+    </div>
+    <mat-icon class="chevron-icon">chevron_right</mat-icon>
+  </mat-card-content>
+</mat-card>

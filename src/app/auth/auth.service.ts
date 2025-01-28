@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
   private currentUserSubject = new BehaviorSubject<string | null>(localStorage.getItem('username'));
-  public currentUser$ = this.currentUserSubject.asObservable();
+  currentUser$ = this.currentUserSubject.asObservable();
 
   constructor(private router: Router) {}
 
@@ -28,10 +28,6 @@ export class AuthService {
 
   isAuthenticated(): boolean {
     return !!localStorage.getItem('securityKey');
-  }
-
-  getSecurityKey(): string {
-    return localStorage.getItem('securityKey') || '';
   }
 
   private generateSecurityKey(): string {

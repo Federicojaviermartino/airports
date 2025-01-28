@@ -1,8 +1,54 @@
-<div *ngIf="airportDetail">
-  <h2>{{ airportDetail.name }} ({{ airportDetail.key }})</h2>
-  <p><strong>Location:</strong> {{ airportDetail.city }}, {{ airportDetail.country }}</p>
-  <p><strong>Description:</strong> {{ airportDetail.description }}</p>
+<div class="airport-detail-container">
+  <mat-toolbar>
+    <button mat-icon-button (click)="goBack()">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <span class="toolbar-spacer"></span>
+    <button mat-icon-button (click)="reload()">
+      <mat-icon>refresh</mat-icon>
+    </button>
+  </mat-toolbar>
+
+  <div class="airport-content" *ngIf="!error; else errorTpl">
+    <ng-container *ngIf="!loading; else loadingTpl">
+      <mat-card *ngIf="airportDetail" class="airport-card">
+        <mat-card-header>
+          <mat-card-title>
+            {{ airportDetail.name }}
+            <span class="airport-key">({{ airportDetail.key }})</span>
+          </mat-card-title>
+          <mat-card-subtitle>
+            {{ airportDetail.city }}, {{ airportDetail.country }}
+          </mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-content>
+          <div class="airport-info">
+            <p><strong>Owner:</strong> {{ airportDetail.owner }}</p>
+            <p><strong>Built:</strong> {{ airportDetail.build }}</p>
+          </div>
+          <div class="airport-image" *ngIf="airportDetail.image">
+            <img [src]="airportDetail.image" [alt]="airportDetail.name">
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </ng-container>
+  </div>
 </div>
-<div *ngIf="!airportDetail">
-  <p>Loading airport details...</p>
-</div>
+
+<ng-template #loadingTpl>
+  <div class="loading-container">
+    <mat-spinner diameter="50"></mat-spinner>
+    <p>Loading airport details...</p>
+  </div>
+</ng-template>
+
+<ng-template #errorTpl>
+  <div class="error-container">
+    <mat-icon color="warn">error</mat-icon>
+    <p>{{ error }}</p>
+    <button mat-raised-button color="primary" (click)="reload()">
+      Try Again
+    </button>
+  </div>
+</ng-template>
